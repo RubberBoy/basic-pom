@@ -1,0 +1,515 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 定义GAV -->
+	<groupId>com.whaty.cbb</groupId>
+	<artifactId>basic-pom</artifactId>
+	<version>2.0</version>
+	<!-- 打包方式为pom -->
+	<packaging>pom</packaging>
+	<name>基础pom</name>
+  
+	<!-- 定义公共变量，可被继承 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.framework.version>3.2.13.RELEASE</spring.framework.version>
+	</properties>
+  
+	<!-- 定义发布仓库，将项目发布到指定仓库，可被继承 -->
+	<distributionManagement>
+		<repository>
+			<id>department-releases</id>
+			<name>发布版本仓库</name>
+			<url>http://192.168.46.232:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>department-snapshots</id>
+			<name>快照版本仓库</name>
+			<url>http://192.168.46.232:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<!-- 定义插件,可被继承
+				注意：由于不同的子项目中同一插件的配置可能不同，
+					只有所有子项目中配置都一致的插件才可提至父pom中定义
+		-->
+	<build>
+		<defaultGoal>compile</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<target>1.6</target>
+					<source>1.6</source>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- 定义依赖版本，可被继承
+			注意：这里定义的是依赖的版本，子项目中如果使用到依赖还是需要进行声明；
+				定义版本是为了让保证所有子项目中依赖的版本一致性。
+		-->
+	<dependencyManagement> 
+		<dependencies>
+
+			<dependency>
+				<groupId>com.whaty.cbb</groupId>
+				<artifactId>commons-pom</artifactId>
+				<version>1.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.whaty.cbb</groupId>
+				<artifactId>struts-pom</artifactId>
+				<version>2.3.24.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.whaty.cbb</groupId>
+				<artifactId>spring-pom</artifactId>
+				<version>${spring.framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.whaty.framework</groupId>
+				<artifactId>whaty-strutsfixed</artifactId>
+				<version>1.4</version>
+			</dependency>
+  
+			<dependency>
+				<groupId>org.apache.oro</groupId>
+				<artifactId>jakarta-oro</artifactId>
+				<version>2.0.7</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache.tools</groupId>
+				<artifactId>apache-ant-zip</artifactId>
+				<version>1.0</version>
+			</dependency>
+  
+			<dependency>
+				<groupId>aspect</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>ejb3-persistence</artifactId>
+				<version>3.3.2.Beta1</version>
+			</dependency>
+    
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.1</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>1.6.1</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>jdom</groupId>
+				<artifactId>jdom</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>netty</groupId>
+				<artifactId>netty</artifactId>
+				<version>3.2.4.Final</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>netscape.javascript</groupId>
+				<artifactId>JSObject</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache.ws.xmlschema</groupId>
+				<artifactId>xmlschema</artifactId>
+				<version>1.4.7</version>
+			</dependency>
+         
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.5.11</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-jdk14</artifactId>
+				<version>1.5.11</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.14</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json-lib-jdk1.5</artifactId>
+				<version>2.2.2</version>
+				<classifier>jdk15</classifier>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>jsonplugin</artifactId>
+				<version>0.33</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>c3p0</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.1.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>3.3.0.GA</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-annotations</artifactId>
+				<version>3.4.0.GA</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-commons-annotations</artifactId>
+				<version>3.2.0.Final</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>net.sourceforge.jexcelapi</groupId>
+				<artifactId>jxl</artifactId>
+				<version>2.6.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.logicalcobwebs</groupId>
+				<artifactId>proxool-cglib</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.jfree</groupId>
+				<artifactId>jcommon</artifactId>
+				<version>1.0.16</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache.libthrift</groupId>
+				<artifactId>libthrift</artifactId>
+				<version>0.6.1</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.12</version>
+			</dependency>
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant</artifactId>
+				<version>1.7.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.directwebremoting</groupId>
+				<artifactId>dwr</artifactId>
+				<version>3.0.M1</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>JavaPNS</artifactId>
+				<version>2.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.jaxen</groupId>
+				<artifactId>jaxen-core</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.jaxen</groupId>
+				<artifactId>jaxen-dom4j</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.jaxen</groupId>
+				<artifactId>jaxen-jdom</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>netscape</groupId>
+				<artifactId>netscape</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.saxpath</groupId>
+				<artifactId>saxpath</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache</groupId>
+				<artifactId>serializer</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.cliffc</groupId>
+				<artifactId>high-scale-lib</artifactId>
+				<version>1.1.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache</groupId>
+				<artifactId>xalan</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.34</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.10</version>
+				<scope>test</scope>
+			</dependency>
+        
+			<dependency>
+				<groupId>jaxb</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>sqljdbc</groupId>
+				<artifactId>sqljdbc</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.javassist</groupId>  
+				<artifactId>javassist</artifactId>  
+				<version>3.15.0-GA</version>  
+			</dependency>  
+        
+			<dependency>  
+				<groupId>javax.servlet.jsp</groupId>  
+				<artifactId>jsp-api</artifactId>  
+				<version>2.1</version>  
+				<scope>test</scope>  
+			</dependency>
+        
+			<dependency>
+				<groupId>org.apache.mina</groupId>
+				<artifactId>mina-core</artifactId>
+				<version>1.1.7</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>3.1.5</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>20090211</version>
+			</dependency>
+            
+			<dependency>
+				<groupId>org.artofsolving</groupId>
+				<artifactId>jodconverter</artifactId>
+				<version>3.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>cn.jpush</groupId>
+				<artifactId>jpush-java-library</artifactId>
+				<version>V2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.neethi</groupId>
+				<artifactId>neethi</artifactId>
+				<version>2.0.5</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.whaty</groupId>
+				<artifactId>whatyupload</artifactId>
+				<version>1.1</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.whaty</groupId>
+				<artifactId>whatyutils</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.whaty</groupId>
+				<artifactId>whaty-common</artifactId>
+				<version>0.0.4</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+		
+			<dependency>
+				<groupId>classes12</groupId>
+				<artifactId>classes12</artifactId>
+				<version>10.2.0.1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>oracle</groupId>
+				<artifactId>nls_charset12</artifactId>
+				<version>1.0</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.whaty</groupId>
+				<artifactId>whatycache</artifactId>
+				<version>3.1.2</version>
+			</dependency> 
+		
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+			</dependency>
+        
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.2.4</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.2.5</version>
+				<optional>true</optional>
+			</dependency>
+		
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+		
+			<!-- poi start-->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>3.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-contrib</artifactId>
+				<version>3.7-beta3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>3.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>3.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+				<version>3.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
+				<version>2.6.0</version>
+			</dependency>
+			<!-- poi end-->
+		</dependencies>
+	</dependencyManagement> 
+  
+</project>
